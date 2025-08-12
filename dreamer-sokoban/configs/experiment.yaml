@@ -1,0 +1,91 @@
+# Experiment configurations for different Sokoban variants
+
+defaults:
+  - train
+
+# Small puzzle configuration (for quick testing)
+small_puzzle:
+  environment:
+    dim_room: [5, 5]
+    num_boxes: 1
+    max_steps: 50
+  agent:
+    training:
+      imagination_horizon: 10
+      batch_size: 8
+  training:
+    total_steps: 100000
+
+# Medium puzzle configuration
+medium_puzzle:
+  environment:
+    dim_room: [7, 7]
+    num_boxes: 2
+    max_steps: 80
+  agent:
+    training:
+      imagination_horizon: 15
+      batch_size: 16
+
+# Large puzzle configuration
+large_puzzle:
+  environment:
+    dim_room: [10, 10]
+    num_boxes: 4
+    max_steps: 150
+  agent:
+    world_model:
+      rssm:
+        deterministic_size: 1024
+        stochastic_size: 64
+    training:
+      imagination_horizon: 20
+      batch_size: 32
+
+# No curriculum learning
+no_curriculum:
+  environment:
+    use_curriculum: false
+    dim_room: [7, 7]
+    num_boxes: 2
+
+# Fast curriculum progression
+fast_curriculum:
+  environment:
+    use_curriculum: true
+  evaluation:
+    num_episodes: 20  # More episodes for curriculum evaluation
+
+# Discrete-optimized configuration
+discrete_optimized:
+  agent:
+    world_model:
+      rssm:
+        categories: 64  # More categories for discrete states
+        stochastic_size: 64
+    training:
+      kl_weight: 2.0  # Higher KL weight for discrete optimization
+
+# Planning-focused configuration
+planning_focused:
+  agent:
+    planning:
+      use_value_guidance: true
+      num_candidates: 10  # More candidates for better planning
+    training:
+      imagination_horizon: 25  # Longer horizon
+
+# Baseline comparison (smaller model)
+baseline:
+  agent:
+    world_model:
+      encoder_depths: [16, 32, 64, 128]
+      decoder_depths: [128, 64, 32, 16]
+      rssm:
+        deterministic_size: 256
+        stochastic_size: 16
+        categories: 16
+    actor:
+      hidden_sizes: [128, 128]
+    critic:
+      hidden_sizes: [128, 128]

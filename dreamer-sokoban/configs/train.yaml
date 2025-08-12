@@ -1,0 +1,96 @@
+# DreamerV3-Sokoban Training Configuration
+
+# Run settings
+run_name: dreamer_sokoban_${now:%Y%m%d_%H%M%S}
+seed: 42
+device: cuda
+
+# Environment configuration
+environment:
+  env_name: Sokoban-v0
+  use_curriculum: true
+  initial_stage: 0
+  dim_room: [7, 7]
+  num_boxes: 2
+  max_steps: 120
+  observation_size: [64, 64]
+  reward_shaping: true
+
+# Agent configuration
+agent:
+  world_model:
+    encoder_depths: [32, 64, 128, 256]
+    decoder_depths: [256, 128, 64, 32]
+    rssm:
+      deterministic_size: 512
+      stochastic_size: 32
+      categories: 32
+  
+  actor:
+    hidden_sizes: [256, 256]
+    layer_norm: true
+    action_std: 0.1
+  
+  critic:
+    hidden_sizes: [256, 256]
+    layer_norm: true
+  
+  training:
+    batch_size: 16
+    sequence_length: 64
+    imagination_horizon: 15
+    discount: 0.99
+    lambda_: 0.95
+    model_lr: 0.0001
+    actor_lr: 0.0003
+    critic_lr: 0.0003
+    grad_clip: 100.0
+    free_nats: 3.0
+    kl_weight: 1.0
+    reward_weight: 1.0
+    terminal_weight: 1.0
+    reconstruction_weight: 1.0
+  
+  planning:
+    use_value_guidance: true
+    num_candidates: 5
+    temperature: 1.0
+
+# Training configuration
+training:
+  total_steps: 1000000
+  start_training_after: 5000
+  train_every: 10
+  train_steps: 1
+
+# Evaluation configuration
+evaluation:
+  eval_every: 10000
+  num_episodes: 10
+  render: false
+
+# Logging configuration
+logging:
+  use_wandb: false
+  project: dreamer-sokoban
+  log_dir: logs
+
+# Checkpoint configuration
+checkpoint:
+  checkpoint_dir: checkpoints
+  save_every: 50000
+  keep_last_n: 5
+
+# Visualization configuration
+visualization:
+  enabled: true
+  visualize_every: 25000
+  imagination_length: 15
+
+# Hydra configuration
+hydra:
+  run:
+    dir: outputs/${now:%Y-%m-%d}/${now:%H-%M-%S}
+  sweep:
+    dir: multirun/${now:%Y-%m-%d}/${now:%H-%M-%S}
+    subdir: ${hydra.job.num}

@@ -1,0 +1,35 @@
+# Core dependencies
+torch>=2.0.0
+torchvision>=0.15.0
+gymnasium>=0.28.1
+numpy>=1.21.0
+matplotlib>=3.5.0
+
+# Environment-specific
+gym-sokoban
+griddly
+
+# Experiment management
+wandb
+tensorboard
+hydra-core==1.3.2
+omegaconf==2.3.0
+
+# Analysis tools
+seaborn
+plotly
+jupyter
+pandas
+scipy
+
+# Additional ML dependencies
+einops
+tensordict
+stable-baselines3  # For baseline comparisons
+
+# Utilities
+tqdm
+pillow
+opencv-python
+imageio
+pyyaml
