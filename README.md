@@ -85,17 +85,15 @@ python run_experiment.py analyze logs/run_name/ --analyze-curriculum
 
 ```
 dreamer-sokoban/
-├── src/
-│   ├── dreamer/
-│   │   ├── agent.py           # DreamerV3 agent implementation
-│   │   └── world_model.py     # Discrete world model (CategoricalRSSM)
-│   ├── environments/
-│   │   └── sokoban_wrapper.py # Sokoban environment wrapper
-│   ├── planning/              # Advanced planning algorithms
-│   ├── analysis/
-│   │   ├── evaluation.py      # Evaluation framework
-│   │   └── visualization.py   # Visualization tools
-│   └── train.py              # Main training script
+├── dreamer/
+│   ├── agent.py           # DreamerV3 agent implementation
+│   └── world_model.py     # Discrete world model (CategoricalRSSM)
+├── environments/
+│   └── sokoban_wrapper.py # Sokoban environment wrapper
+├── analysis/
+│   ├── evaluation.py      # Evaluation framework
+│   └── visualization.py   # Visualization tools
+├── train.py              # Main training script
 ├── configs/
 │   ├── train.yaml            # Default training configuration
 │   └── experiment.yaml       # Experiment configurations

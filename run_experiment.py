@@ -5,11 +5,7 @@ Supports training, evaluation, and visualization.
 """
 
 import argparse
-import sys
 from pathlib import Path
-
-# Add src to path
-sys.path.append(str(Path(__file__).parent / "src"))
 
 from omegaconf import OmegaConf
 import torch

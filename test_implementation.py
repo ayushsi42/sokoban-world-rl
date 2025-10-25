@@ -5,8 +5,6 @@ Runs basic tests for each component.
 """
 
 import sys
-from pathlib import Path
-sys.path.append(str(Path(__file__).parent / "src"))
 
 import torch
 import numpy as np
