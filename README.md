@@ -12,11 +12,6 @@ This repository implements DreamerV3 with discrete world model adaptations for s
 
 ## Installation
 
-### Prerequisites
-- Python 3.8+
-- CUDA-capable GPU (recommended)
-- 16GB+ RAM
-
 ### Setup
 
 ```bash
